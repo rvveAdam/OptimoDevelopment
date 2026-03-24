@@ -1,0 +1,292 @@
+:root {
+    --color-bg-primary: green;
+    --color-diamond: red;
+    --color-line: blue;
+    --color-oval: teal;
+    --color-rectangle-desktop: white;
+    --border-main: 3px solid black;
+    --color-topbar: olive;
+    --color-rectangle-tablet: #c83737;
+    --transition-standard: all 300ms ease;
+}
+
+
+/* Ogólne podstawowe resetowanie styli */
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    overflow: hidden;
+}
+
+/* Główny widok - bez scrolla */
+
+.mainView{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid black;
+    overflow: hidden;
+}
+
+/* Topbar w oliwkowym kolorze */
+
+.mainView__topbar{
+    height: 10vh;
+    background-color: var(--color-topbar);
+}
+
+/* Separator oddzielający topbar i content */
+
+.mainView__separator{
+    height: 5px;
+    background-color: black;
+}
+
+/* Content zawierający figury - siatka z 3 kolumnami na desktopie */
+
+.mainView__content{
+    display: grid;
+    grid-template-columns: auto auto 280px;
+    column-gap: clamp(20px, 4vw, 100px);
+    background-color: var(--color-bg-primary);
+    height: 90vh;
+}
+
+/* Pierwszy kontener - romby */
+
+.mainView__diamonds {
+    display: flex;
+    padding: 20px 40px 40px 40px;
+    flex-direction: column;
+    max-width: 350px;
+    gap: 20px;
+}
+
+.mainView__upperDiamond {
+    display: flex;
+    justify-content: center;
+    margin-left: clamp(60px, 8vw, 200px);
+}
+
+.mainView__lowerDiamond {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 0;
+}
+
+.mainView__singleDiamond{
+    width: 100px;
+    height: 100px;
+    border: var(--border-main);
+    background-color: var(--color-diamond);
+    /* Tworzenie rombu poprzez obrócenie kwadratu o 45 stopni */
+    transform: rotate(45deg);
+    transition: var(--transition-standard);
+}
+
+/* Animacje - romby: FadeIn na wejściu, obrót do kwadratu na hoverze */
+
+.mainView__upperDiamond .mainView__singleDiamond{
+    animation: fadeIn 300ms ease;
+}
+
+.mainView__lowerDiamond .mainView__singleDiamond{
+    animation: fadeIn 800ms ease;
+}
+
+.mainView__singleDiamond:hover{
+    transform: translateY(-5px);
+}
+
+/* Drugi kontener - prostokąty i owalem */
+
+.mainView__symbols{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 12vh;
+    gap: 20px;
+}
+
+.mainView__lines{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 12vh;
+}
+
+.mainView__line{
+    width: 150px;
+    height: 25px;
+    border: var(--border-main);
+    background-color: var(--color-line);
+    transition: var(--transition-standard);
+}
+
+/* Animacja - linie: FadeIn na wejściu, unosienie się do góry na hoverze z minimalnym cieniem  */
+
+.mainView__line:nth-child(1){
+    animation: fadeIn 1300ms ease;
+}
+
+.mainView__line:nth-child(2){
+    animation: fadeIn 1800ms ease;
+}
+
+.mainView__line:hover{
+    transform: translateY(-10px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.mainView__oval{
+    width: 110px;
+    height: 100px;
+    border: var(--border-main);
+    background-color: var(--color-oval);
+    /* Tworzenie owalu */
+    border-radius: 50%;
+    /* Animacja - FadeIn na wejściu */
+    animation: fadeIn 2000ms ease;
+    transition: var(--transition-standard);
+}
+
+/* Animacja - owal: Powiększenie na hoverze z minimalnym cieniem  */
+
+.mainView__oval:hover {
+    transform: scale(1.05);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Trzeci kontener - prostokąt z napisem */
+
+.mainView__sidebar {
+    display: flex;
+    padding: 10px;
+    overflow: hidden;
+    min-height: 0;
+    justify-content: center;
+    align-self: stretch;
+}
+
+.mainView__rectangle {
+    display: flex;
+    width: 80%;
+    height: 90%;
+    border: var(--border-main);
+    justify-content: center;
+    background-color: var(--color-rectangle-desktop);
+    /* Animacja - FadeIn na wejściu */
+    animation: fadeIn 2200ms ease;
+    transition: var(--transition-standard);
+}
+
+/* Animacja - prostokąt: minimalny cień na hoverze */
+
+.mainView__rectangle:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.mainView__rectangleText{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 42px;
+    text-transform: uppercase;
+    padding-top: 20px;
+}
+
+/* Widok na tablety (od 900px do 583px) */
+
+@media (min-width: 583px) and (max-width: 900px) {
+
+    .mainView__content{
+        grid-template-columns: 1fr 250px;
+        grid-template-rows: auto auto;
+        column-gap: clamp(10px, 3vw, 60px);
+
+    }
+
+    .mainView__diamonds{
+        grid-column: 1;
+        grid-row: 1;
+        max-width: 350px;
+        gap: 0px;
+    }
+
+    .mainView__symbols{
+        grid-column: 1;
+        grid-row: 2;
+        padding: 0 0 0 25px; 
+        gap: 40px; 
+        align-items: center;
+    }
+
+    .mainView__sidebar{
+        grid-column: 2;
+        grid-row: 1 / 3;
+        justify-content: flex-end;
+
+    }
+
+    .mainView__rectangle {
+        aspect-ratio: unset;
+        width: 100%;
+        height: 90%;
+        max-height: unset;
+        margin: 5%;
+        background-color: var(--color-rectangle-tablet);    
+    }
+}
+
+/* Widok mobilny (mniejsze niż 583px) */
+
+@media (max-width: 582px){
+    
+    .mainView__topbar{
+        height: 5vh;
+    }
+
+    .mainView__content{
+        height: 95vh;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .mainView__diamonds{
+        gap: 0px;
+    }
+    
+    .mainView__symbols{
+        padding: 20px 0 0 20px;
+    }
+
+    .mainView__diamonds{
+        max-width: 300px;
+    }
+
+    .mainView__upperDiamond{
+        justify-content: flex-end;
+        padding: 0;
+    }
+
+    .mainView__sidebar {
+        width: 100%;
+        justify-content: flex-start;
+        padding-left: 18vw;
+    }
+
+    .mainView__rectangle {
+        height: 250px;
+        aspect-ratio: unset;
+        width: 200px;
+        background-color: var(--color-line);
+        margin-bottom: 20px;
+    }
+}
+
+/* Animacje - keyframes */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
